@@ -1,0 +1,169 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head th:replace="common/header :: common-header" />
+
+<body>
+	<div th:replace="common/header :: navbar" />
+
+	<div class="container">
+		<div class="row">
+			<form class="form-horizontal" th:action="@{/product/add}" method="post"
+				enctype="multipart/form-data">
+				<fieldset>
+					<legend class="center-block">
+						New Product Information<span style="font-size: small"> * is a
+							required field</span>
+					</legend>
+
+
+					<!-- title -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="title">* Title</label>
+
+						<div class="col-md-8">
+							<input type="text" name="title" class="form-control" id="title"
+								th:value="${product.title}" required="required" placeholder="Title" />
+							<span class="help-block">Title of the product</span>
+						</div>
+					</div>
+
+
+					<!-- publisher -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="publisher">Seller</label>
+						<div class="col-md-8">
+							<input type="text" name="publisher" class="form-control"
+								id="publisher" th:value="${product.publisher}"
+								placeholder="Seller" /> <span class="help-block">Seller
+								of the product</span>
+						</div>
+					</div>
+
+
+
+					<!-- category -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="category">*
+							Category</label>
+						<div class="col-md-8">
+							<select th:value="${product.category}" id="category" name="category"
+								class="form-control">
+								<option value="" selected="selected" disabled="disabled">Please
+									select an option...</option>
+								<option value="Ladies"
+										th:selected="(${product.category}=='Ladies')">Ladies</option>
+								<option value="Men"
+										th:selected="(${product.category}=='Men')">Men</option>
+								<option value="Kids"
+										th:selected="(${product.category}=='Kids')">Kids</option>
+							</select>
+						</div>
+					</div>
+
+
+					<!-- shipping weight -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="shippingWeight">Shipping
+							Weight</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<input th:value="${product.shippingWeight}" type="number" step="0.01"
+									name="shippingWeight" class="form-control" id="shippingWeight"
+									placeholder="Shipping Weight" /> <span
+									class="input-group-addon">Ounces</span>
+							</div>
+							<span class="help-block">Shipping Weight of the product</span>
+						</div>
+					</div>
+
+					<!-- list price -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="listPrice">List
+							Price</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">$</span> <input
+									th:value="${product.listPrice}" type="number" name="listPrice" step="0.01"
+									class="form-control" id="listPrice" placeholder="List Price" />
+							</div>
+							<span class="help-block">List price of the product</span>
+						</div>
+					</div>
+
+					<!-- our price -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="ourPrice">Our
+							Price</label>
+						<div class="col-md-8">
+							<div class="input-group">
+								<span class="input-group-addon">$</span> <input
+									th:value="${product.ourPrice}" type="number" name="ourPrice" step="0.01"
+									class="form-control" id="ourPrice" placeholder="Our Price" />
+							</div>
+							<span class="help-block">Our price of the product</span>
+						</div>
+					</div>
+
+					<!-- in stock number -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="inStockNumber">Number
+							in stock</label>
+						<div class="col-md-8">
+							<input th:value="${product.inStockNumber}" type="number"
+								name="inStockNumber" class="form-control" id="inStockNumber"
+								placeholder="Number of in-stock copies" /> <span
+								class="help-block">Number of in-stock copies</span>
+						</div>
+					</div>
+
+					<!-- status of product -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="status">Status</label>
+						<div class="col-md-8">
+							<label><input value="true" type="radio" name="active"
+								checked="checked" /> Active </label> <label><input
+								value="false" type="radio" name="active" />
+								Inactive </label> <span class="help-block">Whether the product is
+								active or inactive</span>
+						</div>
+					</div>
+
+					<!-- description -->
+					<div class="form-group">
+						<label class="col-md-2 control-label" for="description">Description</label>
+						<div class="col-md-8">
+							<textarea name="description" rows="5" class="form-control"
+								id="description" th:value="${product.description}"
+								placeholder="Description" />
+							<span class="help-block">Description of the product</span>
+						</div>
+					</div>
+
+					<!-- upload image -->
+					<div class="form-group">
+						<div class="col-md-2">
+							<label for="productImage">Upload product image</label>
+						</div>
+						<div class="col-md-8">
+							<input id="productImage" type="file" name="productImage"
+								th:value="${product.productImage}" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-md-2"></div>
+						<div class="col-md-8">
+							<button type="submit" class="btn btn-success">Add Product</button>
+							<a class="btn btn-danger" th:href="@{/}">Cancel</a>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+
+	<div th:replace="common/header :: body-bottom-scripts" />
+</body>
+</html>
