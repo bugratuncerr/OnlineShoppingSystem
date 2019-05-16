@@ -75,15 +75,15 @@
 										</div>
 										<div class="form-group">
 											<label for="currentPassword">Current Password</label> ' <input
-												type="text" class="form-control" id="currentPassword"
-												name="currentPassword" th:value="${currentPassword}" />
+												type="password" class="form-control" id="currentPassword"
+												name="password" th:value="${currentPassword}" />
 										</div>
 										<p style="color: #828282">Enter your current password to
 											change the email address or password.</p>
 
 										<div class="form-group">
 											<label for="email">* Email Address</label> ' <input
-												type="text" class="form-control" id="email" name="email"
+												type="email" class="form-control" id="email" name="email"
 												th:value="${user.email}" />
 										</div>
 										<p style="color: #828282">A valid email address. All
@@ -93,7 +93,7 @@
 											notification.</p>
 
 										<div class="form-group">
-											<label for="txtNewPassword">Password</label> ' <input
+											<label for="txtNewPassword">Password</label>&nbsp;<span id="checkPasswordMatch" style="color:red;"></span> <input
 												type="password" class="form-control" id="txtNewPassword"
 												name="newPassword" />
 										</div>
@@ -460,7 +460,7 @@
 											</div>
 
 											<hr />
-											<button type="submit" class="btn btn-primary btn-lg">Save
+											<button id="updateUserInfoButton" type="submit" class="btn btn-primary btn-lg">Save
 												All</button>
 										</form>
 									</div>

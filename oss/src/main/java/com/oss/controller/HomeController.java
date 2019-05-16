@@ -20,6 +20,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -168,7 +169,67 @@ public class HomeController {
 		
 		return "myProfile";
 	}
-	
+
+
+	@RequestMapping(value="/updateUserInfo",method=RequestMethod.POST)
+	public String updateUserInfo(
+			@ModelAttribute("user") User user,
+			@ModelAttribute("newPassword") String newPassword,
+			Model model
+			)throws Exception{
+		User currentUser = userService.findById(user.getId());
+
+		if(currentUser==null){
+			throw new Exception("User not found");
+		}
+
+		if(userService.findByEmail(user.getEmail())!=null){
+			if(userService.findByEmail(user.getEmail()).getId() != currentUser.getId()){
+				model.addAttribute("emailExists",true);
+				return "myProfile";
+			}
+		}
+		if(userService.findByUsername(user.getUsername())!=null){
+			if(userService.findByUsername(user.getUsername()).getId() != currentUser.getId()){
+				model.addAttribute("usernameExists",true);
+				return "myProfile";
+			}
+		}
+
+		if(newPassword != null && !newPassword.isEmpty() && !newPassword.equals("")){
+			BCryptPasswordEncoder passwordEncoder = SecurityUtility.passwordEncoder();
+			String dbPassword = currentUser.getPassword();
+			if(passwordEncoder.matches(user.getPassword(),dbPassword)){
+				currentUser.setPassword(passwordEncoder.encode(newPassword));
+			}else{
+				model.addAttribute("incorrectPassword",true);
+
+				return "myProfile";
+			}
+		}
+
+		currentUser.setFirstName(user.getFirstName());
+		currentUser.setLastName(user.getLastName());
+		currentUser.setUsername(user.getUsername());
+		currentUser.setEmail(user.getEmail());
+
+		userService.save(currentUser);
+
+		model.addAttribute("updateSuccess",true);
+		model.addAttribute("user",currentUser);
+		model.addAttribute("classActiveEdit",true);
+
+		UserDetails userDetails = userSecurityService.loadUserByUsername(currentUser.getUsername());
+
+		Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(),
+				userDetails.getAuthorities());
+
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
+		return "myProfile";
+	}
+
+
 	@RequestMapping("/listOfCreditCards")
 	public String listOfCreditCards(
 			Model model, Principal principal, HttpServletRequest request
