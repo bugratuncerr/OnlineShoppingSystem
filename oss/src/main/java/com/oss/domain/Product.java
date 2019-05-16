@@ -1,13 +1,11 @@
 package com.oss.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Entity
 public class Product {
@@ -29,6 +27,10 @@ public class Product {
 
 	@Transient
 	private MultipartFile productImage;
+
+	@OneToOne(mappedBy = "product")
+	@JsonIgnore
+	private List<ProductToCartItem> productToCartItemList;
 
 	public Long getId() {
 		return id;
