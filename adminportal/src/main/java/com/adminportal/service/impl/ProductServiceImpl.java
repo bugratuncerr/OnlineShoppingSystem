@@ -2,10 +2,10 @@ package com.adminportal.service.impl;
 
 import java.util.List;
 
+import com.adminportal.domain.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.adminportal.domain.Product;
 import com.adminportal.repository.ProductRepository;
 import com.adminportal.service.ProductService;
 

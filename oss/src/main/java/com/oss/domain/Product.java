@@ -1,10 +1,9 @@
 package com.oss.domain;
 
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -14,21 +13,28 @@ public class Product {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String title;
+	private String author;
 	private String publisher;
+	private String publicationDate;
+	private String language;
 	private String category;
+	private int numberOfPages;
+	private String format;
+	private int isbn;
 	private double shippingWeight;
 	private double listPrice;
 	private double ourPrice;
 	private boolean active=true;
-
+	
 	@Column(columnDefinition="text")
 	private String description;
 	private int inStockNumber;
-
+	
 	@Transient
 	private MultipartFile productImage;
-
-	@OneToOne(mappedBy = "product")
+	
+	
+	@OneToMany(mappedBy = "product")
 	@JsonIgnore
 	private List<ProductToCartItem> productToCartItemList;
 
@@ -48,6 +54,13 @@ public class Product {
 		this.title = title;
 	}
 
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
+	}
 
 	public String getPublisher() {
 		return publisher;
@@ -57,6 +70,21 @@ public class Product {
 		this.publisher = publisher;
 	}
 
+	public String getPublicationDate() {
+		return publicationDate;
+	}
+
+	public void setPublicationDate(String publicationDate) {
+		this.publicationDate = publicationDate;
+	}
+
+	public String getLanguage() {
+		return language;
+	}
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
 
 	public String getCategory() {
 		return category;
@@ -66,6 +94,29 @@ public class Product {
 		this.category = category;
 	}
 
+	public int getNumberOfPages() {
+		return numberOfPages;
+	}
+
+	public void setNumberOfPages(int numberOfPages) {
+		this.numberOfPages = numberOfPages;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
+	public int getIsbn() {
+		return isbn;
+	}
+
+	public void setIsbn(int isbn) {
+		this.isbn = isbn;
+	}
 
 	public double getShippingWeight() {
 		return shippingWeight;
@@ -123,6 +174,13 @@ public class Product {
 		this.productImage = productImage;
 	}
 
+	public List<ProductToCartItem> getProductToCartItemList() {
+		return productToCartItemList;
+	}
 
-
+	public void setProductToCartItemList(List<ProductToCartItem> productToCartItemList) {
+		this.productToCartItemList = productToCartItemList;
+	}
+	
+	
 }

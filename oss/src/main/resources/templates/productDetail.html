@@ -32,6 +32,8 @@
     		</div>
     		
     		<div class="col-xs-9">
+				<h3><span th:if="${addProductSuccess}" style="color: forestgreen"><i class="fa fa-check" aria-hidden="true" style="color: forestgreen"></i>Added to cart.</span></h3>
+				<h3><span th:if="${notEnoughStock}" style="color: red">Only <span th:text="${product.inStockNumber}"></span> In Stock.</span></h3>
     			<h3 th:text="${product.title}">Product Title</h3>
     			<div class="row">
     				<div class="col-xs-5">
@@ -56,7 +58,7 @@
     								</div>
     								<div class="col-xs-6">
     									<h4 th:if="*{product.inStockNumber&gt;10}" style="color: green">In Stock</h4>
-    									<h4 th:if="*{product.inStockNumber&lt;10 and product.inStockNumber&gt;0}" style="color: green">Only <span th:text="${product.inStockNumber}"> In Stock</span></h4>
+    									<h4 th:if="*{product.inStockNumber&lt;10 and product.inStockNumber&gt;0}" style="color: green">Only  <span th:text="${product.inStockNumber}">  In Stock</span></h4>
     									<h4 th:if="*{product.inStockNumber==0}" style="color:darkred;">Unavailable</h4>
     									<button type="submit" class="btn btn-warning" style="color:black;border:1px solid black; padding: 10px 40px 10px 40px;">Add to Cart</button>
     								</div>

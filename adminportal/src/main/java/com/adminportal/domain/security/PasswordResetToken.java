@@ -1,5 +1,4 @@
 package com.adminportal.domain.security;
-
 import java.util.Calendar;
 import java.util.Date;
 

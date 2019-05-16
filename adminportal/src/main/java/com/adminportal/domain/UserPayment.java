@@ -1,9 +1,16 @@
-package com.oss.domain;
+package com.adminportal.domain;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
-public class Payment {
+public class UserPayment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -15,9 +22,11 @@ public class Payment {
 	private int expiryYear;
 	private int cvc;
 	private String holderName;
+	private boolean defaultPayment;
 	
-	@OneToOne
-	private Order order;
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	private User user;
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "userPayment")
 	private UserBilling userBilling;
@@ -86,12 +95,20 @@ public class Payment {
 		this.holderName = holderName;
 	}
 
-	public Order getOrder() {
-		return order;
+	public boolean isDefaultPayment() {
+		return defaultPayment;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setDefaultPayment(boolean defaultPayment) {
+		this.defaultPayment = defaultPayment;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public UserBilling getUserBilling() {

@@ -52,7 +52,7 @@
 					</form>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">SHOPPING CART</a></li>
+					<li><a th:href="@{/shoppingCart/cart}">SHOPPING CART</a></li>
 					<li><a sec:authorize="isAnonymous()" th:href="@{/login}">MY ACCOUNT</a></li>
 					<li><a sec:authorize="isAuthenticated()" th:href="@{/myProfile}">MY ACCOUNT</a></li>
 					<li><a sec:authorize="isAuthenticated()" th:href="@{/logout}">LOGOUT</a></li>
@@ -66,9 +66,10 @@
 
 <div th:fragment="body-bottom-scripts">
 	<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js"></script>
+			th:src="@{/js/jquery.min.js}"></script>
+	<script th:src="@{/js/bootstrap.min.js}"></script>
 
+	<script th:src="@{/js/scripts.js}"></script>
 
 	<!-- data table -->
 	<script th:src="@{/js/jquery.dataTables.min.js}"></script>

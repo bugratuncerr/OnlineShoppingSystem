@@ -1,21 +1,21 @@
 package com.oss.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.oss.domain.*;
 import com.oss.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.oss.domain.User;
-import com.oss.domain.UserBilling;
-import com.oss.domain.UserPayment;
-import com.oss.domain.UserShipping;
 import com.oss.domain.security.PasswordResetToken;
 import com.oss.domain.security.UserRole;
 import com.oss.service.UserService;
+
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -58,24 +58,32 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findByEmail(email);
 	}
 
-	@Override
-	public User createUser(User user, Set<UserRole> userRoles){
-		User localUser = userRepository.findByUsername(user.getUsername());
+    @Override
+    @Transactional
+    public User createUser(User user, Set<UserRole> userRoles){
+        User localUser = userRepository.findByUsername(user.getUsername());
 
-		if(localUser != null) {
-			LOG.info("user {} already exists. Nothing will be done.", user.getUsername());
-		} else {
-			for (UserRole ur : userRoles) {
-				roleRepository.save(ur.getRole());
-			}
+        if(localUser != null) {
+            LOG.info("user {} already exists. Nothing will be done.", user.getUsername());
+        } else {
+            for (UserRole ur : userRoles) {
+                roleRepository.save(ur.getRole());
+            }
 
-			user.getUserRoles().addAll(userRoles);
+            user.getUserRoles().addAll(userRoles);
 
-			localUser = userRepository.save(user);
-		}
+            ShoppingCart shoppingCart = new ShoppingCart();
+            shoppingCart.setUser(user);
+            user.setShoppingCart(shoppingCart);
 
-		return localUser;
-	}
+            user.setUserShippingList(new ArrayList<UserShipping>());
+            user.setUserPaymentList(new ArrayList<UserPayment>());
+
+            localUser = userRepository.save(user);
+        }
+
+        return localUser;
+    }
 
 	@Override
 	public User save(User user) {
