@@ -1,37 +1,38 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+
 <head th:replace="common/header :: common-header" />
 
 <body>
-<div th:replace="common/header :: navbar" />
+	<div th:replace="common/header :: navbar" />
 
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12" >
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
 
-			<img class=" img-responsive" src="/image/logo.png"  style="margin: 0 auto !important;" />
+				<img class=" img-responsive" src="/image/logo.png" style="margin: 0 auto !important;" />
 
+			</div>
 		</div>
-	</div>
 
-	<hr />
+		<hr />
 
 
-	<div>
-		<div class="home-headline">
-			<span>Featured Products</span>
+		<div>
+			<div class="home-headline">
+				<span>Featured Product</span>
+			</div>
+			<hr style="margin-top: -15px;" />
 		</div>
-		<hr style="margin-top: -15px;" />
+
+
+
+
 	</div>
+	<!-- end of container -->
 
 
-
-
-</div>
-<!-- end of container -->
-
-
-<div th:replace="common/header :: body-bottom-scripts" />
+	<div th:replace="common/header :: body-bottom-scripts" />
 </body>
+
 </html>
