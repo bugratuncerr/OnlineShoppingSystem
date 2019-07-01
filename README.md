@@ -1,5 +1,4 @@
-
-Online Shopping System
+##Online Shopping System
 
 A group project for the Software Engineering Lab Course.
 
